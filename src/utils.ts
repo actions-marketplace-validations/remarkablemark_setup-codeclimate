@@ -59,7 +59,7 @@ export function getDownloadObject(version: string, name: string) {
     // join instead of resolve or else path will be broken on windows
     dest: path.join(binPath, name + (platform === 'win32' ? '.exe' : '')),
     url: `https://codeclimate.com/downloads/test-reporter/test-reporter-${version}-${getOS(
-      platform
+      platform,
     )}-${getArch(arch)}`,
   };
 }
@@ -71,7 +71,6 @@ export function getDownloadObject(version: string, name: string) {
  * @returns - Semver (Linux/Windows) or hash (Mac)
  */
 export async function getVersion(binaryPath: string): Promise<string> {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return (await getExecOutput(binaryPath, ['--version'])).stdout
     .replace('(', '')
     .split(' ')
